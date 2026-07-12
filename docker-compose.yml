@@ -1,0 +1,12 @@
+version: '3.8'
+
+services:
+  lemonbot:
+    build: .
+    container_name: lemonbot
+    environment:
+      - TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN}
+      - LOG_LEVEL=INFO
+    volumes:
+      - ./lemonbot.db:/app/lemonbot.db
+    restart: unless-stopped
