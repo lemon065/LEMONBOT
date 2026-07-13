@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LEMONBOT FARMZ ULTRA 🍋💥</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <canvas id="explosionCanvas"></canvas>
+    
+    <div class="container">
+        <header class="header">
+            <h1 class="glitch">🍋 LEMONBOT FARMZ ULTRA 💥</h1>
+            <p class="subtitle">🔥 CITRONS EXPLOSIFS 🔥 - Crée des créatures DINGUES!</p>
+        </header>
+
+        <div class="game-board">
+            <!-- Stats -->
+            <div class="stats-panel neon-pink">
+                <div class="stat neon-glow">
+                    <span class="stat-label">💣 CITRONS EXPLOSIFS:</span>
+                    <span class="stat-value cyber" id="lemons">0</span>
+                </div>
+                <div class="stat neon-glow">
+                    <span class="stat-label">⚡ ÉNERGIE NUCLÉAIRE:</span>
+                    <span class="stat-value cyber" id="energy">100</span>/100
+                </div>
+                <div class="stat neon-glow">
+                    <span class="stat-label">👹 CRÉATURES MUTANTES:</span>
+                    <span class="stat-value cyber" id="creatures">0</span>
+                </div>
+                <button class="reset-btn explode-btn" onclick="resetGame()">🔄 RESET TOTAL 💥</button>
+            </div>
+
+            <!-- Farm Area -->
+            <div class="farm-area neon-cyan">
+                <h2 class="glitch-text">💣 TA FERME RADIOACTIVE 💣</h2>
+                <div class="creatures-grid" id="creaturesGrid">
+                    <!-- Les créatures apparaissent ici -->
+                </div>
+                <button class="action-btn spawn-btn cyber-btn" onclick="spawnCreature()">🍋💥 CRÉER CITRON EXPLOSIF (50 pts)</button>
+            </div>
+
+            <!-- Actions -->
+            <div class="actions-panel neon-purple">
+                <h2 class="glitch-text">⚙️ ACTIONS DINGUES</h2>
+                <button class="action-btn harvest-btn cyber-btn" onclick="harvestLemmons()">💥 EXPLOSER CITRONS!</button>
+                <button class="action-btn feed-btn cyber-btn" onclick="feedCreatures()">🔥 NOURRIR LES MONSTRES!</button>
+                <button class="action-btn rest-btn cyber-btn" onclick="rest()">⚡ RECHARGE NUCLÉAIRE</button>
+                <button class="action-btn shop-btn cyber-btn" onclick="toggleShop()">🎪 MEGA SHOP</button>
+            </div>
+
+            <!-- Shop -->
+            <div class="shop-panel rainbow-border" id="shopPanel" style="display: none;">
+                <h2 class="glitch-text">🎪 MEGA BOUTIQUE PSYCHÉDÉLIQUE 🎪</h2>
+                <div class="shop-items">
+                    <div class="shop-item cyber-card">
+                        <span class="cyber-text">🎆 PACK 1000 CITRONS EXPLOSIFS</span>
+                        <button class="cyber-btn" onclick="buyLemmons(1000)">💥 ACHETER 💥</button>
+                    </div>
+                    <div class="shop-item cyber-card">
+                        <span class="cyber-text">⚡ SUPER CHARGE ÉNERGIE +200</span>
+                        <button class="cyber-btn" onclick="buyEnergy(200)">🔋 ACHETER 🔋</button>
+                    </div>
+                    <div class="shop-item cyber-card">
+                        <span class="cyber-text">🌈 PACK ULTIME (2000 CITRONS + 200 ÉNERGIE)</span>
+                        <button class="cyber-btn" onclick="buyBundle()">🎉 ACHETER 🎉</button>
+                    </div>
+                </div>
+                <button class="close-btn explode-btn" onclick="toggleShop()">FERMER 💥</button>
+            </div>
+
+            <!-- Log -->
+            <div class="log-panel neon-yellow">
+                <h2 class="glitch-text">📡 CONSOLE FOLLE</h2>
+                <div class="log" id="log">
+                    <p class="log-entry success">⚡ BIENVENUE DANS L'ENFER COLORÉ! 🌈</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="game.js"></script>
+</body>
+</html>
