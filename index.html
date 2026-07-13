@@ -3,84 +3,99 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LEMONBOT FARMZ ULTRA 🍋💥</title>
+    <title>LEMONBOT CBD SHOP 🌿🍋</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <canvas id="explosionCanvas"></canvas>
-    
     <div class="container">
+        <!-- Header -->
         <header class="header">
-            <h1 class="glitch">🍋 LEMONBOT FARMZ ULTRA 💥</h1>
-            <p class="subtitle">🔥 CITRONS EXPLOSIFS 🔥 - Crée des créatures DINGUES!</p>
+            <div class="logo-section">
+                <div class="logo">
+                    <span class="logo-emoji">🍋</span>
+                    <span class="weapon">🔫</span>
+                </div>
+                <h1>LEMONBOT CBD SHOP</h1>
+                <p class="tagline">🌿 Premium Quality 🌿</p>
+            </div>
+            <div class="header-actions">
+                <button class="cart-btn" onclick="toggleCart()">
+                    🛒 Panier <span class="cart-count" id="cartCount">0</span>
+                </button>
+                <button class="games-btn" onclick="toggleGames()">
+                    🎮 Jeux
+                </button>
+            </div>
         </header>
 
-        <div class="game-board">
-            <!-- Stats -->
-            <div class="stats-panel neon-pink">
-                <div class="stat neon-glow">
-                    <span class="stat-label">💣 CITRONS EXPLOSIFS:</span>
-                    <span class="stat-value cyber" id="lemons">0</span>
+        <div class="main-content">
+            <!-- Sidebar Menu -->
+            <aside class="sidebar">
+                <div class="menu-section">
+                    <h2>📦 Menu</h2>
+                    <button class="menu-btn active" onclick="filterProducts('all')">Tous les produits</button>
+                    <button class="menu-btn" onclick="filterProducts('flower')">🌸 Fleurs</button>
+                    <button class="menu-btn" onclick="filterProducts('oil')">🧴 Huiles</button>
+                    <button class="menu-btn" onclick="filterProducts('edibles')">🍬 Comestibles</button>
+                    <button class="menu-btn" onclick="filterProducts('vape')">💨 Vapes</button>
+                    <button class="menu-btn" onclick="filterProducts('accessories')">🛠️ Accessoires</button>
                 </div>
-                <div class="stat neon-glow">
-                    <span class="stat-label">⚡ ÉNERGIE NUCLÉAIRE:</span>
-                    <span class="stat-value cyber" id="energy">100</span>/100
-                </div>
-                <div class="stat neon-glow">
-                    <span class="stat-label">👹 CRÉATURES MUTANTES:</span>
-                    <span class="stat-value cyber" id="creatures">0</span>
-                </div>
-                <button class="reset-btn explode-btn" onclick="resetGame()">🔄 RESET TOTAL 💥</button>
-            </div>
 
-            <!-- Farm Area -->
-            <div class="farm-area neon-cyan">
-                <h2 class="glitch-text">💣 TA FERME RADIOACTIVE 💣</h2>
-                <div class="creatures-grid" id="creaturesGrid">
-                    <!-- Les créatures apparaissent ici -->
+                <div class="info-section">
+                    <h3>ℹ️ Infos</h3>
+                    <p>Tous nos produits sont 100% légaux et de haute qualité.</p>
+                    <p class="info-contact">📞 Support 24/7</p>
                 </div>
-                <button class="action-btn spawn-btn cyber-btn" onclick="spawnCreature()">🍋💥 CRÉER CITRON EXPLOSIF (50 pts)</button>
-            </div>
+            </aside>
 
-            <!-- Actions -->
-            <div class="actions-panel neon-purple">
-                <h2 class="glitch-text">⚙️ ACTIONS DINGUES</h2>
-                <button class="action-btn harvest-btn cyber-btn" onclick="harvestLemmons()">💥 EXPLOSER CITRONS!</button>
-                <button class="action-btn feed-btn cyber-btn" onclick="feedCreatures()">🔥 NOURRIR LES MONSTRES!</button>
-                <button class="action-btn rest-btn cyber-btn" onclick="rest()">⚡ RECHARGE NUCLÉAIRE</button>
-                <button class="action-btn shop-btn cyber-btn" onclick="toggleShop()">🎪 MEGA SHOP</button>
-            </div>
-
-            <!-- Shop -->
-            <div class="shop-panel rainbow-border" id="shopPanel" style="display: none;">
-                <h2 class="glitch-text">🎪 MEGA BOUTIQUE PSYCHÉDÉLIQUE 🎪</h2>
-                <div class="shop-items">
-                    <div class="shop-item cyber-card">
-                        <span class="cyber-text">🎆 PACK 1000 CITRONS EXPLOSIFS</span>
-                        <button class="cyber-btn" onclick="buyLemmons(1000)">💥 ACHETER 💥</button>
-                    </div>
-                    <div class="shop-item cyber-card">
-                        <span class="cyber-text">⚡ SUPER CHARGE ÉNERGIE +200</span>
-                        <button class="cyber-btn" onclick="buyEnergy(200)">🔋 ACHETER 🔋</button>
-                    </div>
-                    <div class="shop-item cyber-card">
-                        <span class="cyber-text">🌈 PACK ULTIME (2000 CITRONS + 200 ÉNERGIE)</span>
-                        <button class="cyber-btn" onclick="buyBundle()">🎉 ACHETER 🎉</button>
-                    </div>
+            <!-- Products Section -->
+            <section class="products-section">
+                <h2 id="sectionTitle">🛍️ Tous les produits</h2>
+                <div class="products-grid" id="productsGrid">
+                    <!-- Les produits s'affichent ici -->
                 </div>
-                <button class="close-btn explode-btn" onclick="toggleShop()">FERMER 💥</button>
-            </div>
+            </section>
+        </div>
 
-            <!-- Log -->
-            <div class="log-panel neon-yellow">
-                <h2 class="glitch-text">📡 CONSOLE FOLLE</h2>
-                <div class="log" id="log">
-                    <p class="log-entry success">⚡ BIENVENUE DANS L'ENFER COLORÉ! 🌈</p>
+        <!-- Cart Panel -->
+        <div class="cart-panel" id="cartPanel">
+            <div class="cart-content">
+                <h2>🛒 Votre Panier</h2>
+                <div class="cart-items" id="cartItems">
+                    <p class="empty-cart">Votre panier est vide</p>
                 </div>
+                <div class="cart-total">
+                    <strong>Total: $<span id="cartTotal">0.00</span></strong>
+                </div>
+                <button class="checkout-btn" onclick="checkout()">✅ Commander</button>
+                <button class="close-btn" onclick="toggleCart()">❌ Fermer</button>
             </div>
+        </div>
+
+        <!-- Games Panel -->
+        <div class="games-panel" id="gamesPanel">
+            <div class="games-content">
+                <h2>🎮 Zone de Jeux</h2>
+                <div class="games-grid">
+                    <button class="game-btn" onclick="startGame('grow')">🌱 Cultiver ta Plante</button>
+                    <button class="game-btn" onclick="startGame('clicker')">🎯 Weed Clicker</button>
+                    <button class="game-btn" onclick="startGame('spin')">🎡 Lucky Spin</button>
+                    <button class="game-btn" onclick="startGame('memory')">🧠 Memory Game</button>
+                </div>
+                <button class="close-btn" onclick="toggleGames()">❌ Fermer</button>
+            </div>
+        </div>
+
+        <!-- Game Container -->
+        <div class="game-container" id="gameContainer" style="display: none;">
+            <button class="close-game-btn" onclick="closeGame()">❌ Retour</button>
+            <div class="game-content" id="gameContent"></div>
         </div>
     </div>
 
-    <script src="game.js"></script>
+    <script src="products.js"></script>
+    <script src="cart.js"></script>
+    <script src="games.js"></script>
+    <script src="main.js"></script>
 </body>
 </html>
