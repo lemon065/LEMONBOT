@@ -3,99 +3,150 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LEMONBOT CBD SHOP 🌿🍋</title>
-    <link rel="stylesheet" href="style.css">
+    <title>LEMONBOT CBD SHOP - Telegram Style 🌿🍋</title>
+    <link rel="stylesheet" href="telegram-style.css">
 </head>
 <body>
-    <div class="container">
-        <!-- Header -->
-        <header class="header">
-            <div class="logo-section">
-                <div class="logo">
+    <div class="telegram-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo-mini">
                     <span class="logo-emoji">🍋</span>
-                    <span class="weapon">🔫</span>
+                    <span class="weapon-mini">🔫</span>
                 </div>
-                <h1>LEMONBOT CBD SHOP</h1>
-                <p class="tagline">🌿 Premium Quality 🌿</p>
+                <h1>CBD SHOP</h1>
             </div>
-            <div class="header-actions">
-                <button class="cart-btn" onclick="toggleCart()">
-                    🛒 Panier <span class="cart-count" id="cartCount">0</span>
+
+            <div class="search-bar">
+                <input type="text" placeholder="🔍 Rechercher..." id="searchInput" onkeyup="searchProducts()">
+            </div>
+
+            <div class="sidebar-categories">
+                <button class="category-btn active" onclick="selectCategory('all', this)">📦 Tous</button>
+                <button class="category-btn" onclick="selectCategory('flower', this)">🌸 Fleurs</button>
+                <button class="category-btn" onclick="selectCategory('oil', this)">🧴 Huiles</button>
+                <button class="category-btn" onclick="selectCategory('edibles', this)">🍬 Comestibles</button>
+                <button class="category-btn" onclick="selectCategory('vape', this)">💨 Vapes</button>
+                <button class="category-btn" onclick="selectCategory('accessories', this)">🛠️ Accessoires</button>
+                <button class="category-btn" onclick="selectCategory('games', this)">🎮 Jeux</button>
+            </div>
+
+            <div class="products-list" id="productsList">
+                <!-- Les produits s'affichent ici -->
+            </div>
+        </aside>
+
+        <!-- Main Chat Area -->
+        <main class="main-chat">
+            <div class="chat-header" id="chatHeader">
+                <div class="header-content">
+                    <h2 id="chatTitle">Bienvenue sur LEMONBOT CBD SHOP</h2>
+                    <p id="chatSubtitle">Sélectionne un produit ou un jeu</p>
+                </div>
+                <button class="cart-icon-btn" onclick="toggleCartPanel()">
+                    🛒 <span id="cartBadge" class="badge">0</span>
                 </button>
-                <button class="games-btn" onclick="toggleGames()">
-                    🎮 Jeux
+            </div>
+
+            <div class="chat-messages" id="chatMessages">
+                <div class="welcome-message">
+                    <div class="message-bot">
+                        <div class="message-text">
+                            <h3>🍋 Bienvenue chez LEMONBOT CBD SHOP!</h3>
+                            <p>Sélectionne un produit à gauche pour en savoir plus ou joue à nos jeux! 🎮</p>
+                            <p>Tous nos produits sont 100% légaux et de qualité premium. ✨</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="chat-input-area">
+                <div class="input-group">
+                    <input type="text" placeholder="Écris un message ou une question..." id="messageInput" onkeypress="handleMessageInput(event)">
+                    <button class="send-btn" onclick="sendMessage()">➤</button>
+                </div>
+                <button class="action-btn" onclick="toggleCartPanel()">
+                    🛒 PANIER
                 </button>
             </div>
-        </header>
+        </main>
 
-        <div class="main-content">
-            <!-- Sidebar Menu -->
-            <aside class="sidebar">
-                <div class="menu-section">
-                    <h2>📦 Menu</h2>
-                    <button class="menu-btn active" onclick="filterProducts('all')">Tous les produits</button>
-                    <button class="menu-btn" onclick="filterProducts('flower')">🌸 Fleurs</button>
-                    <button class="menu-btn" onclick="filterProducts('oil')">🧴 Huiles</button>
-                    <button class="menu-btn" onclick="filterProducts('edibles')">🍬 Comestibles</button>
-                    <button class="menu-btn" onclick="filterProducts('vape')">💨 Vapes</button>
-                    <button class="menu-btn" onclick="filterProducts('accessories')">🛠️ Accessoires</button>
-                </div>
-
-                <div class="info-section">
-                    <h3>ℹ️ Infos</h3>
-                    <p>Tous nos produits sont 100% légaux et de haute qualité.</p>
-                    <p class="info-contact">📞 Support 24/7</p>
-                </div>
-            </aside>
-
-            <!-- Products Section -->
-            <section class="products-section">
-                <h2 id="sectionTitle">🛍️ Tous les produits</h2>
-                <div class="products-grid" id="productsGrid">
-                    <!-- Les produits s'affichent ici -->
-                </div>
-            </section>
-        </div>
-
-        <!-- Cart Panel -->
-        <div class="cart-panel" id="cartPanel">
-            <div class="cart-content">
-                <h2>🛒 Votre Panier</h2>
-                <div class="cart-items" id="cartItems">
-                    <p class="empty-cart">Votre panier est vide</p>
-                </div>
-                <div class="cart-total">
-                    <strong>Total: $<span id="cartTotal">0.00</span></strong>
-                </div>
-                <button class="checkout-btn" onclick="checkout()">✅ Commander</button>
-                <button class="close-btn" onclick="toggleCart()">❌ Fermer</button>
+        <!-- Right Sidebar - Games/Info -->
+        <aside class="right-sidebar">
+            <div class="right-header">
+                <h3>⚡ Actions Rapides</h3>
             </div>
-        </div>
 
-        <!-- Games Panel -->
-        <div class="games-panel" id="gamesPanel">
-            <div class="games-content">
-                <h2>🎮 Zone de Jeux</h2>
-                <div class="games-grid">
-                    <button class="game-btn" onclick="startGame('grow')">🌱 Cultiver ta Plante</button>
-                    <button class="game-btn" onclick="startGame('clicker')">🎯 Weed Clicker</button>
-                    <button class="game-btn" onclick="startGame('spin')">🎡 Lucky Spin</button>
-                    <button class="game-btn" onclick="startGame('memory')">🧠 Memory Game</button>
-                </div>
-                <button class="close-btn" onclick="toggleGames()">❌ Fermer</button>
+            <div class="quick-actions">
+                <button class="action-quick-btn" onclick="startQuickGame('clicker')">
+                    🔥 Clicker
+                </button>
+                <button class="action-quick-btn" onclick="startQuickGame('spin')">
+                    🎡 Spin
+                </button>
+                <button class="action-quick-btn" onclick="startQuickGame('memory')">
+                    🧠 Memory
+                </button>
+                <button class="action-quick-btn" onclick="startQuickGame('grow')">
+                    🌱 Grow
+                </button>
             </div>
-        </div>
 
-        <!-- Game Container -->
-        <div class="game-container" id="gameContainer" style="display: none;">
-            <button class="close-game-btn" onclick="closeGame()">❌ Retour</button>
-            <div class="game-content" id="gameContent"></div>
+            <div class="info-panel">
+                <h4>📊 Statistiques</h4>
+                <div class="stat-item">
+                    <span>Articles au panier:</span>
+                    <strong id="statItems">0</strong>
+                </div>
+                <div class="stat-item">
+                    <span>Total:</span>
+                    <strong id="statTotal">$0.00</strong>
+                </div>
+                <div class="stat-item">
+                    <span>Points Jeux:</span>
+                    <strong id="statPoints">0</strong>
+                </div>
+            </div>
+
+            <div class="promo-panel">
+                <h4>🎁 Promotions</h4>
+                <p>✨ -15% sur les huiles</p>
+                <p>🎉 -20% pour 2+ produits</p>
+                <p>🔥 Livraison gratuite >$50</p>
+            </div>
+        </aside>
+    </div>
+
+    <!-- Cart Panel -->
+    <div class="cart-panel" id="cartPanel">
+        <div class="cart-header">
+            <h2>🛒 Votre Panier</h2>
+            <button class="close-btn" onclick="toggleCartPanel()">✕</button>
+        </div>
+        <div class="cart-items" id="cartItems">
+            <p class="empty-message">Votre panier est vide</p>
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Total:</span>
+                <strong id="totalPrice">$0.00</strong>
+            </div>
+            <button class="checkout-btn" onclick="checkout()">✅ Commander</button>
         </div>
     </div>
 
-    <script src="products.js"></script>
-    <script src="cart.js"></script>
-    <script src="games.js"></script>
-    <script src="main.js"></script>
+    <!-- Game Modal -->
+    <div class="game-modal" id="gameModal">
+        <div class="game-modal-content">
+            <button class="close-btn" onclick="closeGameModal()">✕</button>
+            <div id="gameContent"></div>
+        </div>
+    </div>
+
+    <script src="telegram-products.js"></script>
+    <script src="telegram-cart.js"></script>
+    <script src="telegram-games.js"></script>
+    <script src="telegram-main.js"></script>
 </body>
 </html>
